@@ -1,0 +1,338 @@
+{
+	"info": {
+		"_postman_id": "26c6f884-ee54-41d9-be40-75bae7f61e89",
+		"name": "task-app",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2620617"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"user\",\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"f4x2zRbI\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"f4x2zRbI\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzExNDQ3MTBmZmVjNzNjZDY4ZGRiNDEiLCJpYXQiOjE2NjIwNzYwMzd9.nr5ddd4FOhby-cS-bTV_aeRsm-2-YrsXqWLDLBRz2q4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/users/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout All",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzEwZjMwOTQ3N2M5ZjM0NmI5NGNmOGUiLCJpYXQiOjE2NjIwNjc0NjF9.OpLLSQxan74yq2jA9KmprV9MCIu1zaenVulInLwqdBc",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/users/logout-all",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"logout-all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzExNDQ3MTBmZmVjNzNjZDY4ZGRiNDEiLCJpYXQiOjE2NjIwNzYwMTd9.iJC19huS5FPGDc7FvqdaRFReTZMS6HsRX7Lu2HyGFFE",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/users/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzExNDQ3MTBmZmVjNzNjZDY4ZGRiNDEiLCJpYXQiOjE2NjIwNzYwMTd9.iJC19huS5FPGDc7FvqdaRFReTZMS6HsRX7Lu2HyGFFE",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"user UPDATED\",\r\n    \"email\": \"user@email.com\",\r\n    \"password\": \"f4x2zRbI\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/users/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzExNDQwNTBmZmVjNzNjZDY4ZGRiMzUiLCJpYXQiOjE2NjIwNzU5MDl9.JY3cG23yytYLGUkyT9YasCWX5kiqcInqpTJn-cBYGv0",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/users/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzExNDQwNTBmZmVjNzNjZDY4ZGRiMzUiLCJpYXQiOjE2NjIwNzU5MDl9.JY3cG23yytYLGUkyT9YasCWX5kiqcInqpTJn-cBYGv0",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Learning Node.js!\",\r\n    \"completed\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tasks",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzExNDY1YmE3ZTdmZGQ3OTkyOGIwNGIiLCJpYXQiOjE2NjIwNzY1MDd9.2PwjpCOY264sStm6nNdSsI4OQkJIkmuCaJm8Bvx0gqo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/tasks",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzExNDY1YmE3ZTdmZGQ3OTkyOGIwNGIiLCJpYXQiOjE2NjIwNzY1MDd9.2PwjpCOY264sStm6nNdSsI4OQkJIkmuCaJm8Bvx0gqo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/tasks/63114667a7e7fdd79928b051",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks",
+								"63114667a7e7fdd79928b051"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzExNDY1YmE3ZTdmZGQ3OTkyOGIwNGIiLCJpYXQiOjE2NjIwNzY1MDd9.2PwjpCOY264sStm6nNdSsI4OQkJIkmuCaJm8Bvx0gqo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Learning Node.js UPDATED\",\r\n    \"completed\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/tasks/63114640a7e7fdd79928b045",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks",
+								"63114640a7e7fdd79928b045"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzExNDY1YmE3ZTdmZGQ3OTkyOGIwNGIiLCJpYXQiOjE2NjIwNzY1MDd9.2PwjpCOY264sStm6nNdSsI4OQkJIkmuCaJm8Bvx0gqo",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/tasks/63114667a7e7fdd79928b051",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"tasks",
+								"63114667a7e7fdd79928b051"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

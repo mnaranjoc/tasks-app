@@ -1,25 +1,17 @@
-const express = require('express');
-const User = require('../models/user');
-const router = new express.Router();
+const express = require('express')
+const User = require('../models/user')
+const router = new express.Router()
+const auth = require('../middleware/auth')
 
 router.post('/users', async (req, res) => {
   try {
-    const user = await User.create(req.body);
+    const user = await User.create(req.body)
     const token = await user.generateAuthToken()
     res.send({ user, token })
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(e)
   }
-});
-
-router.get('/users', async (req, res) => {
-  try {
-    const users = await User.find();
-    res.send(users);
-  } catch (e) {
-    res.status(500).send(e);
-  }
-});
+})
 
 router.post('/users/login', async (req, res) => {
   try {
@@ -31,58 +23,63 @@ router.post('/users/login', async (req, res) => {
   }
 })
 
-router.get('/users/:id', async (req, res) => {
+router.post('/users/logout', auth, async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    req.user.tokens = req.user.tokens.filter((token) => {
+      return token.token !== req.token
+    })
 
-    if (!user) {
-      return res.status(404).send();
-    }
+    await req.user.save()
 
-    res.send(user);
+    res.send()
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(e)
   }
-});
+})
 
-router.patch('/users/:id', async (req, res) => {
+router.post('/users/logout-all', auth, async (req, res) => {
   try {
-    const updates = Object.keys(req.body);
-    const allowedUpdates = ['name', 'email', 'password'];
-    const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
+    req.user.tokens = []
+    await req.user.save()
+    res.send()
+  } catch (e) {
+    res.status(500).send(e)
+  }
+})
+
+router.get('/users/me', auth, async (req, res) => {
+  res.send(req.user)
+})
+
+router.patch('/users/me', auth, async (req, res) => {
+  try {
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ['name', 'email', 'password']
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {
-      return res.status(400).send();
+      return res.status(400).send()
     }
 
-    const user = await User.findById(req.params.id);
+    const user = req.user
 
-    if (!user) {
-      return res.status(404).send();
-    }
+    updates.forEach((element) => (user[element] = req.body[element]))
 
-    updates.forEach((element) => (user[element] = req.body[element]));
+    await user.save()
 
-    await user.save();
-
-    res.send(user);
+    res.send(user)
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(e)
   }
-});
+})
 
-router.delete('/users/:id', async (req, res) => {
+router.delete('/users/me', auth, async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id);
-
-    if (!user) {
-      return res.status(404).send();
-    }
-
-    res.send({ Response: 'User id: ' + user.id + ' deleted.' });
+    await req.user.remove()
+    res.send(req.user)
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(e)
   }
-});
+})
 
-module.exports = router;
+module.exports = router

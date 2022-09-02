@@ -1,7 +1,8 @@
-const mongoose = require('mongoose');
-const validator = require('validator');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const mongoose = require('mongoose')
+const validator = require('validator')
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
+const Task = require('./task')
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -17,7 +18,7 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     validate(value) {
       if (!validator.isEmail(value)) {
-        throw new Error('Email is invalid');
+        throw new Error('Email is invalid')
       }
     },
   },
@@ -27,7 +28,7 @@ const userSchema = new mongoose.Schema({
     minlength: 7,
     validate(value) {
       if (value.toLowerCase().includes('password')) {
-        throw new Error('Password cannot contain "password"');
+        throw new Error('Password cannot contain "password"')
       }
     },
   },
@@ -39,49 +40,61 @@ const userSchema = new mongoose.Schema({
       },
     },
   ],
-});
+})
+
+userSchema.virtual('tasks', {
+  ref: 'Task',
+  localField: '_id',
+  foreignField: 'owner',
+})
 
 userSchema.methods.generateAuthToken = async function () {
-  const user = this;
-  const token = jwt.sign({ _id: user._id }, 'mytestkey');
+  const user = this
+  const token = jwt.sign({ _id: user._id }, 'mytestkey')
 
   try {
-    user.tokens = user.tokens.concat({ token });
-    await user.save();
+    user.tokens = user.tokens.concat({ token })
+    await user.save()
   } catch (e) {
-    console.log(e);
-    throw new Error(e);
+    console.log(e)
+    throw new Error(e)
   }
-  return token;
-};
+  return token
+}
 
 userSchema.statics.findByCredentials = async (email, password) => {
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email })
 
   if (!user) {
-    throw new Error('Unable to login');
+    throw new Error('Unable to login')
   }
 
-  const isMatch = await bcrypt.compare(password, user.password);
+  const isMatch = await bcrypt.compare(password, user.password)
 
   if (!isMatch) {
-    throw new Error('Unable to login');
+    throw new Error('Unable to login')
   }
 
-  return user;
-};
+  return user
+}
 
 userSchema.pre('save', async function (next) {
-  const user = this;
+  const user = this
 
   if (user.isModified('password')) {
-    user.password = await bcrypt.hash(user.password, 8);
+    user.password = await bcrypt.hash(user.password, 8)
   }
 
-  next();
-});
+  next()
+})
 
-const User = mongoose.model('User', userSchema);
+userSchema.pre('remove', async function (next) {
+  const user = this
+  await Task.deleteMany({ owner: user._id })
+  next()
+})
+
+const User = mongoose.model('User', userSchema)
 
 // var user = new User({
 //     name: 'user',
@@ -95,4 +108,4 @@ const User = mongoose.model('User', userSchema);
 //     console.log(error)
 // })
 
-module.exports = User;
+module.exports = User
