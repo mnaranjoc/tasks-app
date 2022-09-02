@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "26c6f884-ee54-41d9-be40-75bae7f61e89",
+		"_postman_id": "5c79c8d6-3948-4761-81d3-b98b32feb0a7",
 		"name": "task-app",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "2620617"
@@ -240,12 +240,30 @@
 							}
 						],
 						"url": {
-							"raw": "{{url}}/tasks",
+							"raw": "{{url}}/tasks?completed=true&limit=10&skip=0&sortBy=createdAt:asc",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"tasks"
+							],
+							"query": [
+								{
+									"key": "completed",
+									"value": "true"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								},
+								{
+									"key": "skip",
+									"value": "0"
+								},
+								{
+									"key": "sortBy",
+									"value": "createdAt:asc"
+								}
 							]
 						}
 					},
