@@ -4,7 +4,8 @@
   "description": "Simple app to manage user tasks in Node.js",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,11 +21,13 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "express": "^4.18.1",
+    "jest": "^29.0.2",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.9.0",
     "mongoose": "^6.5.4",
     "multer": "^1.4.5-lts.1",
     "sharp": "^0.31.0",
+    "supertest": "^6.2.4",
     "validator": "^13.7.0"
   }
 }
